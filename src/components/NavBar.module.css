@@ -1,57 +1,135 @@
 .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
   display: flex;
-  justify-content: space-between;
-
   align-items: center;
-  padding: 10px 20px;
-  background-color: bisque;
-  color: black;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #f8f7f7;
+  border-bottom: 1px solid #f4f4f1;
+  color: #1d1d1d;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #1d1d1d;
+  font-weight: 800;
+  font-size: 20px;
 }
 
 .logo img {
-  width: 150px;
+  width: 56px;
   height: auto;
+}
+
+.rightSide {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.searchBox {
+  display: none;
+  flex: 1;
+  max-width: 920px;
+  margin-left: 8px;
+}
+
+.searchBox input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #f4f4f1;
+  border-radius: 10px;
+  outline: none;
+  background: #fff;
+  color: #1d1d1d;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.searchBox input:focus {
+  border-color: #bcd763;
+  box-shadow: 0 0 0 2px #bcd76333;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  padding: 8px;
+}
+
+.bar {
+  width: 28px;
+  height: 3px;
+  background: #1d1d1d;
+  border-radius: 3px;
+  transition: all 0.3s ease;
 }
 
 .navLinks {
   list-style: none;
+  margin: 0;
+  padding: 12px 14px;
+  position: absolute;
+  right: 16px;
+  top: 58px;
   display: none;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
   background: #1d1d1d;
-  position: absolute;
-  top: 60px;
-  padding: 20px;
-  border-radius: 8px;
-  align-items: flex-start;
-}
-
-.navLinks li {
-  cursor: pointer;
-  font-weight: 600;
   color: #f8f7f7;
-  transition: color 0.3s;
-}
-
-.navLinks li:hover {
-  color: #bcd763;
+  min-width: 190px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .navLinks.open {
   display: flex;
 }
 
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 5px;
-  margin-right: 15px;
+.navLinks li {
+  font-weight: 600;
 }
-.bar {
-  width: 25px;
-  height: 3px;
-  background: black;
-  border-radius: 3px;
-  transition: all 0.3s ease;
+
+.navLinks a {
+  color: #f8f7f7;
+  text-decoration: none;
+  padding: 4px 2px;
+  border-bottom: 2px solid transparent;
+  display: inline-block;
+}
+
+.navLinks a:hover {
+  color: #bcd763;
+}
+
+.navLinks a.active {
+  color: #bcd763;
+  border-bottom-color: #bcd763;
+}
+
+@media (min-width: 992px) {
+  .searchBox {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+  }
+}
+
+@media (min-width: 1280px) {
+  .searchBox {
+    max-width: 960px;
+  }
 }

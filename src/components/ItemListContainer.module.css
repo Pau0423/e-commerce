@@ -1,0 +1,60 @@
+.wrapper {
+  padding: 24px;
+}
+
+.greeting {
+  font-size: 2.2rem;
+  font-weight: 800;
+  text-align: center;
+  color: #1e131e;
+  margin-top: 40px;
+  background: linear-gradient(90deg, #1e131e, #f4f4f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.loader {
+  padding: 16px;
+  color: #1d1d1d;
+}
+
+.grid {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: #f8f7f7;
+  border: 1px solid #f4f4f1;
+  border-radius: 12px;
+  padding: 16px;
+  display: grid;
+  gap: 8px;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #1d1d1d;
+}
+
+.card p {
+  margin: 0;
+  color: #1d1d1d;
+}
+
+.card a {
+  justify-self: start;
+  text-decoration: none;
+  color: #1d1d1d;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+}
+
+.card a:hover {
+  border-bottom-color: #bcd763;
+}
