@@ -38,14 +38,29 @@ const ItemListContainer = ({ greeting }) => {
   return (
     <section className={styles.wrapper}>
       {greeting && <h2 className={styles.greeting}>{greeting}</h2>}
-      {categoryId && <h4>Categoría: {categoryId}</h4>}
+      {categoryId && (
+        <h4 className={styles.category}>Categoría: {categoryId}</h4>
+      )}
 
       <ul className={styles.grid}>
         {items.map((prod) => (
           <li key={prod.id} className={styles.card}>
-            <h3>{prod.title}</h3>
-            <p>{money(prod.price)}</p>
-            <Link to={`/item/${prod.id}`}>Ver detalle</Link>
+            {/* Imagen del producto */}
+            <img
+              className={styles.thumb}
+              src={prod.image}
+              alt={prod.title}
+              loading="lazy"
+            />
+
+            {/* Contenido */}
+            <div className={styles.body}>
+              <h3 className={styles.title}>{prod.title}</h3>
+              <p className={styles.price}>{money(prod.price)}</p>
+              <Link to={`/item/${prod.id}`} className={styles.link}>
+                Ver detalle
+              </Link>
+            </div>
           </li>
         ))}
       </ul>

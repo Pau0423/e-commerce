@@ -18,12 +18,9 @@ export default function NavBarT() {
         <span>MontevideoImport</span>
       </Link>
 
-      {/* Contenedor derecho: buscador + hamburguesa */}
       <div className={styles.rightSide}>
         <div className={styles.searchBox}>
-          {/* Si no tenés Search.jsx, reemplazá por un input */}
           <Search placeholder="Buscar productos..." />
-          {/* <input type="search" placeholder="Buscar productos..." /> */}
         </div>
         <CartWidget />
         <button
@@ -37,7 +34,6 @@ export default function NavBarT() {
         </button>
       </div>
 
-      {/* Dropdown dentro del navbar */}
       <ul className={`${styles.navLinks} ${open ? styles.open : ""}`}>
         <li>
           <NavLink to="/" end onClick={close}>
