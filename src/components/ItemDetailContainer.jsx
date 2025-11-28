@@ -1,36 +1,40 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getProductById } from "../data/products";
-import { useCart } from "../context/CartContext.jsx"; // ✅ Import del contexto
+import { useCart } from "../context/CartContext.jsx";
+import styles from "./ItemDetailContainer.module.css";
 
 function ItemCount({ stock = 0, onAdd }) {
   const [qty, setQty] = useState(1);
 
+  if (stock === 0) {
+    return <p className={styles.noStock}>Producto sin stock.</p>;
+  }
+
   return (
-    <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+    <div className={styles.countContainer}>
       <button
+        className={styles.countBtn}
         onClick={() => setQty((q) => Math.max(1, q - 1))}
         disabled={qty <= 1}
       >
         -
       </button>
-      <span>{qty}</span>
+
+      <span className={styles.countNumber}>{qty}</span>
+
       <button
+        className={styles.countBtn}
         onClick={() => setQty((q) => Math.min(stock, q + 1))}
         disabled={qty >= stock}
       >
         +
       </button>
+
       <button
+        className={styles.addBtn}
         disabled={!stock}
         onClick={() => onAdd?.(qty)}
-        style={{
-          background: "#bcd763",
-          border: "none",
-          padding: "6px 12px",
-          borderRadius: "8px",
-          cursor: "pointer",
-        }}
       >
         Agregar al carrito
       </button>
@@ -42,39 +46,52 @@ export default function ItemDetailContainer() {
   const { itemId } = useParams();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { add } = useCart(); // ✅ Usamos la función add del carrito
+  const [added, setAdded] = useState(false);
+  const { add } = useCart();
 
   useEffect(() => {
     setLoading(true);
+    setAdded(false);
+
     getProductById(itemId)
       .then(setItem)
       .finally(() => setLoading(false));
   }, [itemId]);
 
-  if (loading) return <p style={{ padding: 16 }}>Cargando detalle…</p>;
-  if (!item) return <p style={{ padding: 16 }}>No se encontró el producto.</p>;
+  const handleAdd = (q) => {
+    add(item, q);
+    setAdded(true);
+  };
+
+  if (loading) return <p className={styles.loading}>Cargando detalle…</p>;
+  if (!item)
+    return <p className={styles.notFound}>No se encontró el producto.</p>;
 
   return (
-    <article
-      style={{
-        padding: 24,
-        display: "flex",
-        flexDirection: "column",
-        gap: 12,
-        background: "#f8f7f7",
-        borderRadius: 12,
-        border: "1px solid #f4f4f1",
-        maxWidth: 600,
-        margin: "0 auto",
-      }}
-    >
-      <h2 style={{ color: "#1d1d1d" }}>{item.title}</h2>
-      <p style={{ color: "#1d1d1d" }}>{item.description}</p>
-      <p>
-        <strong style={{ color: "#1d1d1d" }}>USD {item.price}</strong> · Stock:{" "}
-        {item.stock}
+    <article className={styles.card}>
+      <img src={item.image} alt={item.title} className={styles.image} />
+
+      <h2 className={styles.title}>{item.title}</h2>
+      <p className={styles.description}>{item.description}</p>
+      <p className={styles.priceStock}>
+        <strong>USD {item.price}</strong> · Stock: {item.stock}
       </p>
-      <ItemCount stock={item.stock} onAdd={(q) => add(item, q)} />
+
+      {!added ? (
+        <ItemCount stock={item.stock} onAdd={handleAdd} />
+      ) : (
+        <div className={styles.afterAdd}>
+          <p>Producto agregado al carrito ✅</p>
+          <div className={styles.links}>
+            <Link to="/cart" className={styles.link}>
+              Ir al carrito
+            </Link>
+            <Link to="/" className={styles.link}>
+              Seguir comprando
+            </Link>
+          </div>
+        </div>
+      )}
     </article>
   );
 }

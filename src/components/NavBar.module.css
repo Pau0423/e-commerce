@@ -55,7 +55,7 @@
 }
 
 .searchBox input:focus {
-  border-color: #bcd763;
+  border-color: #f8a94d;
   box-shadow: 0 0 0 2px #bcd76333;
 }
 
@@ -94,7 +94,7 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-.navLinks.open {
+.open {
   display: flex;
 }
 
@@ -111,12 +111,12 @@
 }
 
 .navLinks a:hover {
-  color: #bcd763;
+  color: #f8a94d;
 }
 
 .navLinks a.active {
-  color: #bcd763;
-  border-bottom-color: #bcd763;
+  color: #f8a94d;
+  border-bottom-color: #f8a94d;
 }
 
 @media (min-width: 992px) {

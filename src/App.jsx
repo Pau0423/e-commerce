@@ -1,29 +1,38 @@
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import NavBar from "./components/NavBarT.jsx";
+import NavBarT from "./components/NavBarT.jsx";
 import ItemListContainer from "./components/ItemListContainer.jsx";
 import ItemDetailContainer from "./components/ItemDetailContainer.jsx";
-import CartPage from "./components/CartPage.jsx"; // ✅ Importar el carrito
+import CartPage from "./components/CartPage.jsx";
+import CheckoutForm from "./components/cart/CheckoutForm.jsx";
 
 function App() {
+  const [query, setQuery] = useState("");
+
   return (
     <>
-      <NavBar />
+      <NavBarT onSearch={setQuery} />
+
       <Routes>
         <Route
           path="/"
           element={
-            <ItemListContainer greeting="Bienvenido a MontevideoImport" />
+            <ItemListContainer
+              greeting="Bienvenido a MontevideoImport"
+              query={query}
+            />
           }
         />
-        <Route path="/category/:categoryId" element={<ItemListContainer />} />
-        <Route path="/item/:itemId" element={<ItemDetailContainer />} />
-        <Route path="/cart" element={<CartPage />} /> {/* ✅ Nueva ruta */}
         <Route
-          path="*"
-          element={<p style={{ padding: 16 }}>404 · Página no encontrada</p>}
+          path="/category/:categoryId"
+          element={<ItemListContainer query={query} />}
         />
+        <Route path="/item/:itemId" element={<ItemDetailContainer />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutForm />} />
       </Routes>
     </>
   );
 }
+
 export default App;

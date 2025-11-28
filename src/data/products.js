@@ -4,74 +4,53 @@ import ipadpro from "../assets/ipadpro.png";
 import tvsony from "../assets/tvsony.png";
 import ps5 from "../assets/ps5.png";
 
-export const PRODUCTS = [
-  {
-    id: "1",
-    title: "iPhone 16 Pro Max 256 GB",
-    price: 1800,
-    stock: 5,
-    category: "celulares",
-    description:
-      "El iPhone 16 Pro Max destaca por su resistente cuerpo de titanio, pantalla Super Retina XDR de 6.3”, cámara Fusion de 48 MP con grabación 4K Dolby Vision a 120 cps y nuevo control de cámara. Ofrece una experiencia fotográfica profesional con estilos personalizables y una batería que dura hasta 33 horas de video.",
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
-    image: iphone16,
-  },
-  {
-    id: "2",
-    title: "MacBook Air M2",
-    price: 1600,
-    stock: 3,
-    category: "notebooks",
-    description:
-      "Portátil ultraligera con chip M2, gran rendimiento y batería de larga duración.",
-    image: macbookairm2,
-  },
-  {
-    id: "3",
-    title: "iPad Pro 12.9",
-    price: 1400,
-    stock: 4,
-    category: "tablets",
-    description:
-      "Pantalla Liquid Retina XDR y chip M2 para potencia profesional y gráficos excepcionales.",
-    image: ipadpro,
-  },
-  {
-    id: "4",
-    title: "Televisor Sony 55'' 4K",
-    price: 1200,
-    stock: 3,
-    category: "audiovisual",
-    description:
-      "Pantalla Ultra HD con colores vibrantes y sonido envolvente para una experiencia cinematográfica.",
-    image: tvsony,
-  },
-  {
-    id: "5",
-    title: "PlayStation 5",
-    price: 900,
-    stock: 1,
-    category: "gaming",
-    description:
-      "Consola de última generación con gráficos 4K, velocidad ultra rápida y mando DualSense inmersivo.",
-    image: ps5,
-  },
-];
-const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+const IMAGE_MAP = {
+  1: iphone16,
+  2: macbookairm2,
+  3: ipadpro,
+  4: tvsony,
+  5: ps5,
+};
+
+function mapDocToProduct(d) {
+  const data = d.data();
+  const id = d.id;
+
+  return {
+    id,
+    ...data,
+    category: data.category?.trim().toLowerCase() ?? "",
+    image: IMAGE_MAP[id] ?? null,
+  };
+}
 
 export async function getProducts() {
-  await delay(600);
-  return PRODUCTS;
+  const ref = collection(db, "products");
+  const snap = await getDocs(ref);
+  return snap.docs.map(mapDocToProduct);
 }
 
 export async function getProductById(id) {
-  await delay(600);
-  return PRODUCTS.find((p) => String(p.id) === String(id)) ?? null;
+  const ref = doc(db, "products", String(id));
+  const snap = await getDoc(ref);
+  if (!snap.exists()) return null;
+  return mapDocToProduct(snap);
 }
 
 export async function getProductsByCategory(categoryId) {
-  await delay(600);
-  return PRODUCTS.filter((p) => p.category === categoryId);
+  const all = await getProducts();
+  const cat = categoryId.trim().toLowerCase();
+
+  return all.filter((p) => p.category === cat);
 }
 
-export const CATEGORIES = Array.from(new Set(PRODUCTS.map((p) => p.category)));
+export const CATEGORIES = [
+  "celulares",
+  "notebooks",
+  "tablets",
+  "audiovisual",
+  "gaming",
+];

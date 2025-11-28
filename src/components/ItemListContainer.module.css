@@ -9,6 +9,7 @@
   color: #1e131e;
   margin-top: 40px;
   background: linear-gradient(90deg, #1e131e, #f4f4f1);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -42,18 +43,16 @@
   transform: translateY(-4px);
 }
 
-/* 🔽 Imagen del producto */
 .thumb {
   width: 100%;
-  height: 180px; /* ajustá el alto a gusto */
-  object-fit: contain; /* muestra toda la imagen sin recortarla */
-  background: #f4f4f1; /* fondo gris claro */
+  height: 180px;
+  object-fit: contain;
+  background: #f4f4f1;
   border-radius: 8px;
   display: block;
   padding: 6px;
 }
 
-/* Contenido dentro de la card */
 .body {
   display: grid;
   gap: 6px;
@@ -81,5 +80,11 @@
 }
 
 .link:hover {
-  border-bottom-color: #bcd763;
+  border-bottom-color: #f8a94d;
+}
+
+.noProducts {
+  padding: 20px;
+  color: #1d1d1d;
+  text-align: center;
 }

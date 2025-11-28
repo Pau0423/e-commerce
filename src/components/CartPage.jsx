@@ -1,7 +1,10 @@
+import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext.jsx";
+import styles from "./CartPage.module.css";
 
 export default function CartPage() {
   const { items, totalPrice, inc, dec, remove, clear } = useCart();
+
   const money = (n) =>
     new Intl.NumberFormat("es-UY", {
       style: "currency",
@@ -9,58 +12,75 @@ export default function CartPage() {
       maximumFractionDigits: 0,
     }).format(n);
 
-  if (items.length === 0)
-    return <section style={{ padding: 24 }}>Tu carrito está vacío.</section>;
+  if (items.length === 0) {
+    return (
+      <section className={styles.empty}>
+        <h2>Tu carrito está vacío</h2>
+        <p>Cuando agregues productos, los vas a ver acá.</p>
+        <Link to="/" className={styles.backLink}>
+          Ir al catálogo
+        </Link>
+      </section>
+    );
+  }
 
   return (
-    <section style={{ padding: 24, display: "grid", gap: 16, maxWidth: 800 }}>
-      <h2>Carrito</h2>
-      <ul
-        style={{
-          listStyle: "none",
-          padding: 0,
-          margin: 0,
-          display: "grid",
-          gap: 12,
-        }}
-      >
+    <section className={styles.wrapper}>
+      <h2 className={styles.title}>Carrito</h2>
+
+      <ul className={styles.list}>
         {items.map((i) => (
-          <li
-            key={i.id}
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr auto auto auto auto",
-              gap: 12,
-              alignItems: "center",
-              border: "1px solid #f4f4f1",
-              borderRadius: 10,
-              padding: 12,
-              background: "#f8f7f7",
-            }}
-          >
-            <div>
+          <li key={i.id} className={styles.item}>
+            <div className={styles.info}>
               <strong>{i.title}</strong>
-              <div style={{ color: "#555" }}>{money(i.price)}</div>
+              <div className={styles.sub}>Precio: {money(i.price)}</div>
+              <div className={styles.sub}>
+                Subtotal: {money(i.price * i.qty)}
+              </div>
             </div>
-            <button onClick={() => dec(i.id)}>-</button>
-            <span style={{ textAlign: "center", minWidth: 24 }}>{i.qty}</span>
-            <button onClick={() => inc(i.id)}>+</button>
-            <button onClick={() => remove(i.id)} aria-label="Eliminar">
+
+            <button
+              className={styles.qtyBtn}
+              onClick={() => dec(i.id)}
+              aria-label="Disminuir cantidad"
+            >
+              -
+            </button>
+
+            <span className={styles.qty}>{i.qty}</span>
+
+            <button
+              className={styles.qtyBtn}
+              onClick={() => inc(i.id)}
+              aria-label="Aumentar cantidad"
+            >
+              +
+            </button>
+
+            <button
+              className={styles.deleteBtn}
+              onClick={() => remove(i.id)}
+              aria-label="Eliminar"
+            >
               🗑️
             </button>
           </li>
         ))}
       </ul>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginTop: 8,
-        }}
-      >
-        <button onClick={clear}>Vaciar carrito</button>
-        <h3>Total: {money(totalPrice)}</h3>
+
+      <div className={styles.footer}>
+        <button className={styles.clearBtn} onClick={clear}>
+          Vaciar carrito
+        </button>
+
+        <div className={styles.summary}>
+          <span className={styles.totalLabel}>Total:</span>
+          <span className={styles.totalValue}>{money(totalPrice)}</span>
+
+          <Link to="/checkout" className={styles.checkoutBtn}>
+            Finalizar compra
+          </Link>
+        </div>
       </div>
     </section>
   );

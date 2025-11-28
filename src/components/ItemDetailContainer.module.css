@@ -1,58 +1,119 @@
-.detail {
+.card {
   padding: 24px;
   max-width: 600px;
-  margin: 0 auto;
+  margin: 20px auto;
   background: #f8f7f7;
   border: 1px solid #f4f4f1;
   border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.loader {
+.image {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+.title {
+  color: #1d1d1d;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.description {
+  color: #1d1d1d;
+  line-height: 1.4;
+}
+
+.priceStock {
+  font-size: 1.1rem;
+  color: #1d1d1d;
+  margin-bottom: 10px;
+}
+
+.loading,
+.notFound,
+.noStock {
   padding: 16px;
   text-align: center;
   color: #1d1d1d;
 }
 
-.desc {
-  margin-top: 8px;
-  margin-bottom: 12px;
-  color: #1d1d1d;
-  line-height: 1.4;
-}
-
-.price {
-  margin-bottom: 16px;
-  color: #1d1d1d;
-}
-
-.counter {
+.countContainer {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
-.counter button {
+.countBtn {
   background: #1d1d1d;
   color: #f8f7f7;
   border: none;
   border-radius: 6px;
-  padding: 6px 10px;
+  padding: 6px 12px;
   cursor: pointer;
   transition: background 0.2s;
 }
 
-.counter button:hover:not(:disabled) {
+.countBtn:hover:not(:disabled) {
   background: #bcd763;
   color: #1d1d1d;
 }
 
-.counter button:disabled {
+.countBtn:disabled {
   background: #ccc;
   cursor: not-allowed;
 }
 
-.counter span {
+.countNumber {
   font-weight: 600;
   min-width: 24px;
   text-align: center;
+}
+
+.addBtn {
+  background: #bcd763;
+  color: #1d1d1d;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.addBtn:hover {
+  background: #a4c24f;
+}
+
+.afterAdd {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: center;
+}
+
+.links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.link {
+  color: #1d1d1d;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #1d1d1d;
+  transition: 0.2s;
+}
+
+.link:hover {
+  background: #f8a94d;
+  border-color: #f8a94d;
+  color: #1d1d1d;
 }
