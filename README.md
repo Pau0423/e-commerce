@@ -1,8 +1,5 @@
 🛒 MontevideoImport – E-commerce con React + Firebase
 
-Proyecto final del curso React JS – Coderhouse
-Desarrollado por Paula Rodríguez
-
 Descripción del proyecto:
 
 MontevideoImport es una Single Page Application (SPA) desarrollada en React, que simula un e-commerce de productos tecnológicos.
@@ -179,7 +176,7 @@ Instalar dependencias:
 npm install
 
 Crear archivo .env en la raíz del proyecto:
-VITE_FIREBASE_API_KEY=AlzaSyAwcaDZBgSSXCPgD0H0Ge06bV7z_dP5GeZE
+VITE_FIREBASE_API_KEY=
 VITE_FIREBASE_AUTH_DOMAIN=montevideo-import.firebaseapp.com
 VITE_FIREBASE_PROJECT_ID=montevideo-import
 VITE_FIREBASE_STORAGE_BUCKET=montevideo-import.firebasestorage.app
